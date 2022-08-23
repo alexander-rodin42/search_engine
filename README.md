@@ -24,7 +24,7 @@ To build the project to be installed:
 ### Project build
 
 <details>
-<summary>Building using the Windows command line:</summary>
+<summary> - Building using the Windows command line:</summary>
 <br>
 
 - From the command line, navigate to the project's root directory `C:\...\search_engine` and create a build directory:
@@ -42,10 +42,10 @@ To build the project to be installed:
 - Then call that build system to actually compile/link the project:
 
   ```sh
-  cmake .
+  cmake --build .
   ```
 
-- Upon completion of the compilation process, the executable file `search_engine.exe` will appear in the `build` folder.
+- Upon completion of the compilation process, the executable file `search_engine.exe` will appear in the `..\search_engine\build` folder if you are using the MinGW-w64 compiler, and `..\search_engine\build\Debug` for MVS compiler.
 
 </details>
 
