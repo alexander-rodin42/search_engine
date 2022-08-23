@@ -49,37 +49,21 @@ To build the project to be installed:
 
 </details>
 
-### Pre-launch preparation
+### Launch preparation
 
 - For the program to work correctly, it is necessary that the executable file be in the same directory as the files: [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json), [`requests.json`](https://github.com/alexander-rodin42/search_engine/blob/main/requests.json).
 
-- In order for the search engine to process custom documents, add the path to this document to the "files" list in [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json).
-
- <details>
- <summary>example:</summary>
- <br>
-
+- In order for the search engine to process custom documents, add the path to this document to the "files" list in [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json):
  ```sh
  {"files":["resources\\file001.txt", ... ,"user\\custom_document.txt",]}
  ```
-
- </details>
-
  > Note: By default, paths to files from the [`resources`](https://github.com/alexander-rodin42/search_engine/tree/main/resources) folder are specified. The executable and the `resources` folder must be in the same directory.
 
 
-- The requests.json file contains custom requests.
-
- <details>
- <summary>example:</summary>
- <br>
-
+- The [`requests.json`](https://github.com/alexander-rodin42/search_engine/blob/main/requests.json) file contains custom requests:
  ```sh
  {"requests":[""request1","request2","request3"]}
  ```
-
- </details>
-
- > Note: The request may contain Latin characters.
+ > Note: The request can only contain Latin characters.
 
 - The number of responses depends on the "max_responses" parameter, the default is 5. You can change the value in [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json).
