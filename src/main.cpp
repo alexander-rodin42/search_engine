@@ -8,7 +8,7 @@
 #include "SearchServer.h"
 #include "ConverterJSON.h"
 #include "CustomExceptions.h"
-
+#include "WordHandler.h"
 
 void printProgramName(nlohmann::json &config) {
     std::cout << "Started execution ";
@@ -81,10 +81,41 @@ bool isReadyToStart() {
     }
 }
 
+void printResult(const std::vector<std::vector<RelativeIndex>> &answers) {
+    std::cout << std::endl;
+
+    for (int i = 0; i < answers.size(); ++i) {
+        std::cout << "request" << WordHandler::getPositionNumber(i + 1) << ":" << std::endl;
+
+        if (answers[i].empty())
+            std::cout << "  result: false" << std::endl;
+        else {
+            std::cout << "  result: true" << std::endl;
+            std::cout << "  relevance:" << std::endl;
+        }
+
+        for (auto j : answers[i])
+            std::cout << "    docID: " << j.docId << ", rank: " << j.rank << std::endl;
+
+        std::cout << std::endl;
+    }
+}
+
 int main() {
     if (isReadyToStart()) {
         SearchServer searchServer(ConverterJSON::GetTextDocuments(), ConverterJSON::GetResponsesLimit());
-        ConverterJSON::putAnswers(searchServer.search(ConverterJSON::GetRequests()));
+
+        std::vector<std::vector<RelativeIndex>> answers = searchServer.search(ConverterJSON::GetRequests());
+
+        ConverterJSON::putAnswers(answers);
+        printResult(answers);
     }
+
+    std::string command;
+    while (command != "exit") {
+        std::cout << "Enter \"exit\" to exit the program: ";
+        std::cin >> command;
+    }
+
     return 0;
 }

@@ -91,7 +91,7 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>> &an
 
         for (int j = 0; j < answers[i].size(); ++j) {
             std::string position = "position" + WordHandler::getPositionNumber(j + 1);
-            outAnswers["answers"][request]["relevance"][position]["docid"] = answers[i][j].docId;
+            outAnswers["answers"][request]["relevance"][position]["docID"] = answers[i][j].docId;
             outAnswers["answers"][request]["relevance"][position]["rank"] = answers[i][j].rank;
         }
     }
