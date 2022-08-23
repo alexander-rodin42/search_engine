@@ -21,7 +21,7 @@ To build the project to be installed:
 - [CMake](https://cmake.org/download/) build system.
 - [MVS](https://visualstudio.microsoft.com/ru/downloads/) or [MinGW-w64](https://www.mingw-w64.org/downloads/#mingw-builds) compiler.
 
-### 3.1 Project build
+### 3.1 Build
 
 <details>
 <summary> - Building using the Windows command line:</summary>
