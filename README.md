@@ -1,7 +1,7 @@
 # Search engine
 Final work on the course "C++ Developer" from [Skillbox](https://skillbox.ru).
 
-## Description
+## 1. Description
 How a search engine works:
 - In the configuration file [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json), before starting the application, the names of the files that the engine will search for are set.
 - The search engine independently bypasses all files and indexes them like this. to find the most relevant documents for any search query.
@@ -10,18 +10,18 @@ How a search engine works:
 - Search results are ranked, sorted and given to the user.
 - At the end, the program generates a file `answers.json`, writes the search results into it.
 
-## Tech
+## 2. Tech
 Search engine uses a number of open source projects to work properly:
 - To read/generate JSON documents, a third-party library [nlohmann/json](https://github.com/nlohmann/json) is used.
 - For unit tests, the [GoogleTest](https://github.com/google/googletest) library is used.
 
-## Instruction
+## 3. Instruction
 
 To build the project to be installed:
 - [CMake](https://cmake.org/download/) build system.
 - [MVS](https://visualstudio.microsoft.com/ru/downloads/) or [MinGW-w64](https://www.mingw-w64.org/downloads/#mingw-builds) compiler.
 
-### Project build
+### 3.1 Project build
 
 <details>
 <summary> - Building using the Windows command line:</summary>
@@ -49,7 +49,7 @@ To build the project to be installed:
 
 </details>
 
-### Launch preparation
+### 3.2 Launch preparation
 
 - For the program to work correctly, it is necessary that the executable file be in the same directory as the files: [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json), [`requests.json`](https://github.com/alexander-rodin42/search_engine/blob/main/requests.json).
 
