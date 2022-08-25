@@ -23,31 +23,31 @@ To build the project to be installed:
 
 ### 3.1 Build
 
-<details>
-<summary> - Building using the Windows command line:</summary>
-<br>
+  <details>
+  <summary> - Building using the Windows command line:</summary>
+  <br>
 
-- From the command line, navigate to the project's root directory `C:\...\search_engine` and create a build directory:
+  - From the command line, navigate to the project's root directory `C:\...\search_engine` and create a build directory:
 
-  ```sh
-  mkdir build
-  ```
-- Next, navigate to the build directory and run CMake to configure the project and generate a native build system:
+    ```sh
+    mkdir build
+    ```
+  - Next, navigate to the build directory and run CMake to configure the project and generate a native build system:
 
-  ```sh
-  cd build
-  cmake ..
-  ```
+    ```sh
+    cd build
+    cmake ..
+    ```
 
-- Then call that build system to actually compile/link the project:
+  - Then call that build system to actually compile/link the project:
 
-  ```sh
-  cmake --build .
-  ```
+    ```sh
+    cmake --build .
+    ```
 
-- Upon completion of the compilation process, the executable file `search_engine.exe` will appear in the `..\search_engine\build` folder if you are using the MinGW-w64 compiler, and `..\search_engine\build\Debug` for MVS compiler.
+  - Upon completion of the compilation process, the executable file `SearchEngine.exe` will appear in the `..\search_engine\build` folder if you are using the MinGW-w64 compiler, and `..\search_engine\build\Debug` for MVS compiler.
 
-</details>
+  </details>
 
 ### 3.2 Launch preparation
 
@@ -55,15 +55,70 @@ To build the project to be installed:
 
 - In order for the search engine to process custom documents, add the path to this document to the "files" list in [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json):
    ```sh
-   {"files":["resources\\file001.txt", ... ,"user\\custom_document.txt",]}
+   {
+       "files": [
+           "resources\\file001.txt",
+           "..." ,
+           "user\\custom_document.txt",
+       ]
+   }
    ```
    > Note: By default, paths to files from the [`resources`](https://github.com/alexander-rodin42/search_engine/tree/main/resources) folder are specified. The executable and the `resources` folder must be in the same directory.
 
 
 - The [`requests.json`](https://github.com/alexander-rodin42/search_engine/blob/main/requests.json) file contains custom requests:
    ```sh
-   {"requests":[""request1","request2","request3"]}
+   {
+       "requests": [
+           "london",
+           "moscow is the capital of russia",
+           "water milk"
+       ]
+   }
    ```
    > Note: The request can only contain Latin characters.
 
 - The number of responses depends on the "max_responses" parameter, the default is 5. You can change the value in [`config.json`](https://github.com/alexander-rodin42/search_engine/blob/main/config.json).
+
+### 3.3 Launch
+
+  <details>
+  <summary> - Launching the program using the Windows command line:</summary>
+  <br>
+
+  - From the command line, change to the directory containing the `SearchEngine.exe` executable and enter:
+
+    ```sh
+    SearchEngine
+    ```
+
+    If the conditions described in paragraph 3.2 have been met, then the search results will be written to the `answers.json` file and displayed in the console, as shown below:
+
+    ```sh
+    Started execution SearchEngine v1.0
+    Max responses: 5
+
+    request001:
+      result: true
+      relevance:
+        docID: 0, rank: 1
+
+    request002:
+      result: true
+      relevance:
+        docID: 7, rank: 1
+        docID: 14, rank: 1
+        docID: 0, rank: 0.666667
+        docID: 1, rank: 0.666667
+        docID: 2, rank: 0.666667
+
+    request003:
+      result: false
+
+    Enter "exit" to exit the program:
+    ```
+
+
+  - To exit the program, enter `exit` at the command line.
+
+  </details>
