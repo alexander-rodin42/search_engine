@@ -54,8 +54,7 @@ std::vector<std::string> ConverterJSON::GetRequests() {
 int ConverterJSON::GetResponsesLimit() {
     std::ifstream inFile("config.json");
 
-    nlohmann::json inConfig;
-    inFile >> inConfig;
+    nlohmann::json inConfig = nlohmann::json::parse(inFile);
     inFile.close();
 
     if (inConfig["config"].contains("max_responses"))
@@ -68,11 +67,20 @@ void ConverterJSON::GetFileAddresses(std::vector<std::string> &list) {
     std::ifstream inFile("config.json");
 
     if (inFile.is_open()) {
-        nlohmann::json inConfig;
-        inFile >> inConfig;
+        nlohmann::json inConfig = nlohmann::json::parse(inFile);
         inFile.close();
 
-        for (auto i = inConfig.find("files")->begin(); i != inConfig.find("files")->end(); ++i)
+        if (!inConfig["config"].contains("files")) {
+            std::cerr << "Missing field \"files\" in config.json." << std::endl;
+            return;
+        }
+
+        if (inConfig["config"]["files"].empty()) {
+            std::cerr << "The field \"files\" is empty. There are no addresses to documents." << std::endl;
+            return;
+        }
+
+        for (auto i = inConfig["config"].find("files")->begin(); i != inConfig["config"].find("files")->end(); ++i)
             list.push_back(i.value());
     }
 }
@@ -96,7 +104,7 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>> &an
         }
     }
 
-    outFile << outAnswers;
+    outFile << outAnswers.dump(4);
 
     outFile.close();
 }

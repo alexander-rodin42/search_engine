@@ -4,7 +4,6 @@
 
 #include "nlohmann/json.hpp"
 
-
 #include "SearchServer.h"
 #include "ConverterJSON.h"
 #include "CustomExceptions.h"
@@ -21,6 +20,10 @@ void printProgramName(nlohmann::json &config) {
         std::cout << " v" << config["config"]["version"];
     }
     std::cout << std::endl;
+
+    if (config["config"].contains("max_responses")) {
+        std::cout << "Max responses: " << config["config"]["max_responses"] << std::endl;
+    }
 }
 
 void checkConfig(const std::string &configPath) {
@@ -30,8 +33,7 @@ void checkConfig(const std::string &configPath) {
         throw ConfigFileIsMissing();
     }
 
-    nlohmann::json inConfig;
-    inFile >> inConfig;
+    nlohmann::json inConfig = nlohmann::json::parse(inFile);
     inFile.close();
 
     if (!inConfig.contains("config")) {
@@ -48,8 +50,7 @@ void checkRequests(const std::string &requestsPath) {
         throw RequestsFileIsMissing();
     }
 
-    nlohmann::json inRequests;
-    inFile >> inRequests;
+    nlohmann::json inRequests = nlohmann::json::parse(inFile);
     inFile.close();
 
     if (!inRequests.contains("requests") || inRequests["requests"].empty()) {
