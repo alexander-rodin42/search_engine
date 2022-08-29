@@ -26,21 +26,21 @@ void InvertedIndex::UpdateDocumentBase(const std::vector<std::string> &inputDocs
 }
 
 std::map<size_t, size_t> InvertedIndex::GetWordCount(std::string word) {
-    freqDictionaryAccess.lock();
+    const std::lock_guard<std::mutex> lock(freqDictionaryAccess);
+
     std::map<size_t, size_t> result;
     WordHandler::replaceCapitalLetters(word);
 
     if (freqDictionary.find(word) != freqDictionary.end())
         result = freqDictionary[word];
 
-    freqDictionaryAccess.unlock();
     return result;
 }
 
 void InvertedIndex::documentIndexing(size_t docId, const std::string &doc) {
     std::vector<std::string> words(WordHandler::getWords(doc));
 
-    freqDictionaryAccess.lock();
+    const std::lock_guard<std::mutex> lock(freqDictionaryAccess);
 
     for (auto &word: words) {
         bool entryIsFind = false;
@@ -56,8 +56,6 @@ void InvertedIndex::documentIndexing(size_t docId, const std::string &doc) {
         if (!wordIsFind || !entryIsFind)
             freqDictionary[word][docId] = 1;
     }
-
-    freqDictionaryAccess.unlock();
 }
 
 
